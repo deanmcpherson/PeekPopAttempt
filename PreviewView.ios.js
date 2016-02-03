@@ -6,20 +6,28 @@ var {
   PropTypes,
   StyleSheet,
   NativeModules,
+  Dimensions,
+  NativeMethodsMixin,
   requireNativeComponent,
 } = React;
 var { RNPreviewViewManager } = NativeModules;
+
+let window = Dimensions.get('window');
 
 var RN_PREVIEW_VIEW_REF = 'native-preview-view-ref';
 
 var PreviewView = React.createClass({
   propTypes: {
     onPop: PropTypes.func,
+    onActivate: PropTypes.func,
   },
-
+  mixins: [NativeMethodsMixin],
   activate({sourceView}) {
+    if (this.props.onActivate) {
+      setTimeout(this.props.onActivate);
+    } 
     RNPreviewViewManager.setSourceView(sourceView);
-    RNPreviewViewManager.activate(this.getRootNodeHandle());
+    RNPreviewViewManager.activate(this.getRootNodeHandle(), this.props.width || window.width, this.props.height || window.height);
   },
 
   getRootNodeHandle() {
