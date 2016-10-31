@@ -1,15 +1,18 @@
 'use strict';
 
-var React = require('react-native');
+var React = require('react');
+var ReactNative = require('react-native');
+var {
+  PropTypes
+} = require('react');
 var {
   View,
-  PropTypes,
   StyleSheet,
   NativeModules,
   Dimensions,
   NativeMethodsMixin,
   requireNativeComponent,
-} = React;
+} = require('react-native');
 var { RNPreviewViewManager } = NativeModules;
 
 let window = Dimensions.get('window');
@@ -31,13 +34,13 @@ var PreviewView = React.createClass({
   },
 
   getRootNodeHandle() {
-    return React.findNodeHandle(this.refs[RN_PREVIEW_VIEW_REF]);
+    return ReactNative.findNodeHandle(this.refs[RN_PREVIEW_VIEW_REF]);
   },
 
   render() {
     return (
       <RNPreviewView ref={RN_PREVIEW_VIEW_REF} onPop={this.props.onPop} style={{position: 'absolute'}}>
-        {React.Children.map(this.props.children, React.addons.cloneWithProps)}
+        {React.Children.map(this.props.children, React.cloneElement)}
       </RNPreviewView>
     );
   },

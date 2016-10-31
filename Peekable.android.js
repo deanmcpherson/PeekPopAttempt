@@ -1,6 +1,4 @@
 var React = require('react');
-var ReactNative = require('react-native');
-var {PropTypes} = React;
 var {
   AppRegistry,
   StyleSheet,
@@ -36,8 +34,8 @@ var MeasurePreview = React.createClass({
 
 Peekable.View = React.createClass({
   propTypes: {
-    renderPreview: PropTypes.func,
-    onPop: PropTypes.func,
+    renderPreview: React.PropTypes.func,
+    onPop: React.PropTypes.func,
     ...View.propTypes,
   },
   _handlePress: function(e) {
@@ -66,43 +64,12 @@ Peekable.View = React.createClass({
   ],
   render() {
 
-    if (!this.props.renderPreview || (device.deviceName.indexOf('6s') === -1 && this.allowedDevices.indexOf(device.model) !== -1) || Number(device.systemVersion.split('.')[0]) < 9) {
-      return <TouchableWithoutFeedback {...this.props} onPress={this.props.onPress} underlayColor={'transparent'} >
+      return <TouchableWithoutFeedback {...this.props} underlayColor={'transparent'} >
         <View>
           {this.props.children}
         </View>
       </TouchableWithoutFeedback>
-    }
-
-    let preview = (
-      <Peekable.Preview ref={PREVIEW_REF} height={this.height} width={this.width} onPop={this.props.onPop} onActivate={this.onActivate}>
-        <MeasurePreview setDimensions={this.setDimensions} active={this.state.active}> 
-          {this.props.renderPreview()}
-        </MeasurePreview>
-      </Peekable.Preview>
-    );
-    
-    return (
-      <TouchableWithoutFeedback {...this.props} onPressIn={this._handlePressIn} onPress={this._handlePress}>
-        <View {...this.props} ref={(view) => { this._root = view; }}>
-          {this.props.children}
-          {preview}
-        </View>
-      </TouchableWithoutFeedback>
-    )
-  },
-
-  _handlePressIn(e) { 
-    this.__lastPressIn = e.nativeEvent;
-    setTimeout(() => {
-      if (!this.refs[PREVIEW_REF]) return;
-      this.refs[PREVIEW_REF].activate({
-        sourceView: ReactNative.findNodeHandle(this._root)
-      });
-
-     
-    })
-  },
+  }
 });
 
 module.exports = Peekable;

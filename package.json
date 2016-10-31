@@ -5,7 +5,10 @@
   "scripts": {
     "start": "node_modules/react-native/packager/packager.sh"
   },
-  "dependencies": {
-    "react-native": "facebook/react-native#v0.12.0-rc"
-  }
+  "gitHead": "4137f76eec5972bfd9cd95b2cc08b703aa53cf3b",
+  "readme": "ERROR: No README data found!",
+  "_id": "PeekPopAttempt@0.0.1",
+  "_shasum": "bed61735145d975d12cd9d588565dc7ac18f837c",
+  "_from": "brentvatne/PeekPopAttempt",
+  "_resolved": "git://github.com/brentvatne/PeekPopAttempt.git#4137f76eec5972bfd9cd95b2cc08b703aa53cf3b"
 }
